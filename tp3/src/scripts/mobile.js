@@ -2,7 +2,7 @@ import vaisseauBallonSrc from './assets/images/vaisseau-ballon-petit.png';
 import tirSrc            from './assets/images/tir.png';
 import saucer       from './assets/images/flyingSaucer-petit.png'
 export default class Mobile {
-    #x; // Coordonnée x
+    x; // Coordonnéex
     #y; // Coordonnée y
     #image; // Image du mobile
     #stepX; // Pas de déplacement horizontal
@@ -12,7 +12,7 @@ export default class Mobile {
         this.#image = this.#createImage(imageSrc);
        
 
-        this.#x = x;
+        this.x =x;
         this.#y = y;
         this.#stepX = stepX;
         this.#stepY = stepY;
@@ -29,22 +29,20 @@ export default class Mobile {
         return this.#image.height;
     }
     draw(context){
-        context.drawImage(this.#image, this.#x, this.#y);
+        context.drawImage(this.#image, this.x, this.#y);
     }
     move(canvas) {
-        // Vérifie si le déplacement horizontal reste dans les limites du canvas 
-        if (this.#x + this.#stepX >= 0 && this.#x + this.#stepX + this.#image.width <= canvas.width) {
-            this.#x += this.#stepX;
+        if (this.up && this.getY() - this.getStepY() >= 0) {
+            // Déplace vers le haut
+            this.#y -= this.getStepY();
+        } else if (this.down && this.getY() + this.getStepY() + this.height <= canvas.height) {
+            // Déplace vers le bas
+            this.#y += this.getStepY();
         }
-        this.#image.height
-
-        // Vérifie si le déplacement vertical reste dans les limites du canvas
-        if (this.#y + this.#stepY >= 0 && this.#y + this.#stepY + this.#image.height <= canvas.height) {
-            this.#y += this.#stepY;
-        }
+        
     }
     getX() {
-        return this.#x;
+        return this.x;
     }
     getY() {
         return this.#y;

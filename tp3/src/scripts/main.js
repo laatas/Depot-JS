@@ -2,7 +2,7 @@
 import Game from './game.js';
 import Mobile from './mobile.js';
 import Saucer from './saucer.js';
-
+import Shoot from './shoot.js';
 // mise en place de l'action des clics sur les boutons + les gestionnaires du clavier pour contrôler Greedy
 const init = () => {
    const canvas = document.getElementById("stars");
@@ -13,9 +13,13 @@ const init = () => {
         console.log("Bouton 'nouvelleSoucoupe' cliqué.");
         game.addSaucer(); // Ajoute une soucoupe lorsque le bouton est cliqué
     });
-    document.getElementById("score").addEventListener("click", () => {
-        console.log("Bouton 'score' cliqué.");
-        game.updateScore(10); // Ajoute 10 points au score
+    // Gestionnaire pour la touche espace
+   window.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+        console.log("Touche espace pressée.");
+        const shoot = new Shoot(game.starShip.getX() + game.starShip.width, game.starShip.getY() + game.starShip.height / 2); // Crée un tir
+        game.addShoot(shoot); // Ajoute le tir au jeu
+    }
     });
     game.animate();
     

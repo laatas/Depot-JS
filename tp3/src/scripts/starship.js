@@ -8,8 +8,6 @@ export default class StarShip extends Mobile {
         super(x, y, vaisseauBallonSrc, 0, 8); // Pas horizontal = 0, pas vertical = 8
         this.#moving = false; // Initialement immobile
         this.#canvas = document.getElementById("stars");
-        this.x= x;
-        this.y= y;
     }
 
     get up() {
@@ -22,19 +20,17 @@ export default class StarShip extends Mobile {
 
     moveUp() {
         this.#moving = 'up';
+        this.move(); // Appelle la méthode move
     }
 
     moveDown() {
         this.#moving = 'down';
+        this.move(); // Appelle la méthode move
     }
 
     move() {
         // Vérifie si le vaisseau peut se déplacer sans sortir du canvas
-        if (this.#moving === 'up' && this.getY() - this.getStepY() >= 0) {
-            this.y -= this.getStepY(); // Déplace vers le haut
-        } else if (this.#moving === 'down' && this.getY() + this.getStepY() + this.height <= this.#canvas.height) {
-            this.y += this.getStepY(); // Déplace vers le bas
-        }
+        super.move(this.#canvas); // Passe le canvas à la méthode move de Mobile
         this.stop(); // Réinitialise le mouvement après le déplacement
     }
 
